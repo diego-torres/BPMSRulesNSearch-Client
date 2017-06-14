@@ -1,0 +1,23 @@
+[
+    {
+        "name": "AIP"
+    },
+    {
+        "name": "Informatica ETL"
+    },
+    {
+        "name": "Informatica Data Quality"
+    },
+    {
+        "name": "Talend"
+    },
+    {
+        "name": "Alteryx Designer"
+    },
+    {
+        "name": "Alteryx Server"
+    },
+    {
+        "name": "Others"
+    }
+]

@@ -1,0 +1,8 @@
+[
+    {"country":"Australia", "cloudProviders":["AWS", "GCP"]},
+    {"country":"England", "cloudProviders":["AWS", "GCP"]},
+    {"country":"India", "cloudProviders":["AWS", "Azure", "GCP"]},
+    {"country":"Mexico", "cloudProviders":["AWS", "Azure"]},
+    {"country":"Spain", "cloudProviders":["Azure", "GCP"]},
+    {"country":"United States", "cloudProviders":["AWS", "Azure", "GCP"]}
+]
