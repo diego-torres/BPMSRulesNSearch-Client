@@ -1,0 +1,38 @@
+<div class="container">
+    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="Name" class="form-control" formControlName="name" />
+            <div *ngIf="clientForm.controls['name'].touched">
+                <div *ngIf="clientForm.controls['name'].hasError('required')" class="alert alert-danger">
+                    please enter a name.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="Email" class="form-control" formControlName="email" />
+            <div *ngIf="clientForm.controls['email'].touched||clientForm.controls['email'].dirty">
+                <div *ngIf="clientForm.controls['email'].hasError('required')" class="alert alert-danger">
+                    please enter an email.
+                </div>
+                <div *ngIf="clientForm.controls['email'].hasError('pattern')" class="alert alert-danger">
+                    not a valid email address format.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Project Name</label>
+            <input type="text" placeholder="Project Name" class="form-control" formControlName="projectName" />
+            <div *ngIf="clientForm.controls['projectName'].touched||clientForm.controls['projectName'].dirty">
+                <div *ngIf="clientForm.controls['projectName'].hasError('required')" class="alert alert-danger">
+                    please enter a project name.
+                </div>
+                <div *ngIf="clientForm.controls['projectName'].hasError('minlength') || clientForm.controls['projectName'].hasError('maxlength')" class="alert alert-danger">
+                    A project name should be 8 to 50 characters length
+                </div>
+            </div>
+        </div>
+        <button [disabled]="!clientForm.valid" type="submit" class="btn btn-primary">Next</button>
+    </form>
+</div>
