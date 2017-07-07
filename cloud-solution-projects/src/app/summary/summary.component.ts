@@ -1,29 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { Summary } from './summary.model';
+import 'rxjs/add/operator/switchMap';
+
+import { ProjectService } from '../project/project.service';
 
 @Component({
     selector: 'summary-component',
-    template: `<div class="alert alert-info">
-    <h1>Cloud and Data Solution Quote Preview</h1>
-    <b>Cloud Provider:</b>{{summary.cloudProvider}}<br />
-    <b>Hosting at location:</b>{{summary.country}}<br />
-    <div *ngIf="summary.hasDataIngestion">
-        <h2>Data Ingestion</h2>
-        <b>ETL:</b>{{summary.etl}}<br />
-        <b *ngIf="summary.requiresLicence">Requires Licence:</b>Yes<br />
-        <b *ngIf="!summary.requiresLicence">AIP Licence:</b>{{summary.aipLicenceNumber}}<br />
-    </div>
-    <div *ngIf="summary.hasDataVisualization">
-        <h2>Data Visualization</h2>
-        <b>Tool:</b>{{summary.visualizationTool}}<br />
-        <b>Users:</b>{{summary.visualizationUsers}}<br />
-        <b>Designers:</b>{{summary.visualizationDesigners}}<br />
-    </div>
-    <h2>Quoted Price: {{summary.price | currency:'USD':true}}</h2>
-    </div>`,
-    inputs: ['summary']
+    templateUrl: 'summary.html'
 })
-export class SummaryComponent {
-    summary: Summary;
+export class SummaryComponent implements OnInit {
+    project: any = { "org.acme.cloud_solution_projects.Project": { "Title": "" } };
+    cloudSolution: any = {};
+    dataIngestion: any = {};
+    dataVisualization: any = {};
+
+    constructor(
+        private _projectService: ProjectService,
+        private _route: ActivatedRoute,
+        private _router: Router
+    ) { }
+
+    ngOnInit() {
+        let projectId = this._route.snapshot.paramMap.get('id');
+        this._projectService.getProcessVariables(projectId).subscribe(result => {
+            this.project = result.project;
+            this.cloudSolution = this.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'];
+            this.dataIngestion = this.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'];
+            this.dataVisualization = this.project['org.acme.cloud_solution_projects.Project'].dataVisualization['org.acme.cloud_solution_projects.DataVisualization'];
+        });
+    }
+
+    onApprove(){
+        let projectId = this._route.snapshot.paramMap.get('id');
+        this._projectService.signal(null, "approveQuoteRequest");
+    }
 }

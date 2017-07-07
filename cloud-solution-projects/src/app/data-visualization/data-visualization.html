@@ -1,0 +1,33 @@
+<h2>Project {{project['org.acme.cloud_solution_projects.Project'].title}}</h2>
+<div class="container">
+    <form [formGroup]="dataVisualizationForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <div class="checkbox form-control">
+                <label> 
+                    <input type="checkbox" #requiresLicenseRef formControlName="requiresLicense"  /> Do you require AIP Licenses?
+                </label>
+            </div>
+        </div>
+        <div *ngIf="!requiresLicenseRef.checked" class="form-group">
+            <label>AIP License number</label>
+            <input type="text" class="form-control" formControlName="licenseNumber" />
+        </div>
+        <div class="form-group">
+            <label>How many end users will access the reports?</label>
+            <input type="text" class="form-control" formControlName="endUsersQuantity" />
+        </div>
+        <div class="form-group">
+            <label>How many developers will be using the reports Designer?</label>
+            <input type="text" class="form-control" formControlName="developersQuantity" />
+        </div>
+        <div class="form-group">
+            <label>Do you have any preference on data visualization tool?</label>
+            <select class="selectpicker form-control" formControlName="visualizationTool">
+                <option value="TABLEAU">TABLEAU</option>
+                <option value="QLIKVIEW">QLIKVIEW</option>
+                <option value="QLIKSENSE">QLIKSENSE</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Next</button>
+    </form>
+</div>

@@ -1,0 +1,36 @@
+<h2>Project {{project['org.acme.cloud_solution_projects.Project'].title}}</h2>
+<div class="container">
+    <form [formGroup]="dataIngestionForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <div class="checkbox form-control">
+                <label> 
+                    <input type="checkbox" #requiresLicenseRef formControlName="requiresLicense"  /> Do you require AIP Licenses?
+                </label>
+            </div>
+        </div>
+        <div *ngIf="!requiresLicenseRef.checked" class="form-group">
+            <label>AIP License number</label>
+            <input type="text" class="form-control" formControlName="licenseNumber" />
+        </div>
+        <div class="form-group">
+            <div class="checkbox form-control">
+                <label> <input type="checkbox" formControlName="requiresDataQuality" /> Will you perform any data quality activity like data cleansing, data profiling etc. along with ETL?</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Do you have any preference on  ETL tool?</label>
+            <select class="selectpicker form-control" formControlName="etlTool">
+                <option value="AIP">AIP</option>
+                <option value="INFORMATICA ETL">INFORMATICA ETL</option>
+                <option value="INFORMATICA DQ">INFORMATICA DQ</option>
+                <option value="TALEND">TALEND</option>
+                <option value="ALEXTRYX">ALEXTRYX</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>How many developers will be using the ETL Designer?</label>
+            <input type="text" class="form-control" formControlName="developersQuantity" />
+        </div>
+        <button type="submit" class="btn btn-primary">Next</button>
+    </form>
+</div>

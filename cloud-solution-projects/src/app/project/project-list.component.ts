@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'project-list',
@@ -16,4 +17,10 @@ export class ProjectListComponent {
         { name: 'Gender' },
         { name: 'Company' }
     ];
+
+    constructor(private _router: Router){}
+
+    onClick(){
+        this._router.navigate(['projects/add']);
+    }
 }
