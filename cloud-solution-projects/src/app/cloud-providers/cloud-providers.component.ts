@@ -55,6 +55,7 @@ export class CloudProvidersComponent implements OnInit {
         };
         this.project['org.acme.cloud_solution_projects.Project'].cloudSolution = cloudSolution;
         this.project['org.acme.cloud_solution_projects.Project'].dataIngestion = null;
+        this.project['org.acme.cloud_solution_projects.Project'].dataVisualization = null;
         this._projectService.signal(this.project, projectId, "additionalInfo").subscribe(response => {
             this._projectService.getProcessVariables(projectId)
                 .subscribe(response => {
