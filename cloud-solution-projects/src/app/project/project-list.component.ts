@@ -40,11 +40,15 @@ export class ProjectListComponent implements OnInit {
                     project.id = projectId;
                     project.name = pvResult.project['org.acme.cloud_solution_projects.Project'].title;
                     project.status = projectStatusId == 1 ? 'Pending' : 'Quoted';
-                    project.cloudProvider = pvResult.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'].cloudProvider;
-                    project.location = pvResult.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'].locationCountry;
+                    let hasDataIngestion: Boolean = false;
+                    let hasDataVisualization: Boolean = false;
+                    if (pvResult.project['org.acme.cloud_solution_projects.Project'].cloudSolution) {
+                        project.cloudProvider = pvResult.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'].cloudProvider;
+                        project.location = pvResult.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'].locationCountry;
 
-                    let hasDataIngestion: Boolean = pvResult.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'].hasDataIngestion;
-                    let hasDataVisualization: Boolean = pvResult.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'].hasDataVisualization;
+                        hasDataIngestion = pvResult.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'].hasDataIngestion;
+                        hasDataVisualization = pvResult.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'].hasDataVisualization;
+                    }
 
                     project.dataIngestion = hasDataIngestion && pvResult.project['org.acme.cloud_solution_projects.Project'].dataIngestion ? pvResult.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'].etlToolPreference : 'NA';
                     project.dataVisualization = hasDataVisualization && pvResult.project['org.acme.cloud_solution_projects.Project'].dataVisualization ? pvResult.project['org.acme.cloud_solution_projects.Project'].dataVisualization['org.acme.cloud_solution_projects.DataVisualization'].preferredVisualizationTool : 'NA';

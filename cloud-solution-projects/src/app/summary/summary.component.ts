@@ -26,13 +26,22 @@ export class SummaryComponent implements OnInit {
         this._projectService.getProcessVariables(projectId).subscribe(result => {
             this.project = result.project;
             this.cloudSolution = this.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'];
-            this.dataIngestion = this.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'];
-            this.dataVisualization = this.project['org.acme.cloud_solution_projects.Project'].dataVisualization['org.acme.cloud_solution_projects.DataVisualization'];
+            if(this.cloudSolution.hasDataIngestion)
+                this.dataIngestion = this.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'];
+            if(this.cloudSolution.hasDataVisualizaiton)
+                this.dataVisualization = this.project['org.acme.cloud_solution_projects.Project'].dataVisualization['org.acme.cloud_solution_projects.DataVisualization'];
         });
     }
 
     onApprove(){
         let projectId = this._route.snapshot.paramMap.get('id');
-        this._projectService.signal(null, "approveQuoteRequest");
+        this._projectService.signal(null, projectId, "approveQuoteRequest");
+         this._router.navigate(['projects/']);
+    }
+
+    onModify(){
+        let projectId = this._route.snapshot.paramMap.get('id');
+        this._projectService.signal(null, projectId, "modifyQuoteRequest");
+         this._router.navigate(['projects/' + projectId + '/cloud']);
     }
 }

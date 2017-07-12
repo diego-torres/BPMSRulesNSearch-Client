@@ -37,14 +37,14 @@ export class ProjectService {
             .map((response: Response) => response.json());
     }
 
-    signal(project: any, signalName: string) {
+    signal(project, projectId, signalName: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         headers.append("Authorization", "Basic " + btoa('jboss' + ":" + 'bpms'));
 
         let options = new RequestOptions({ headers: headers });
 
         return this._http.post(
-            this._instanceVariablesUrl + "/" + project['org.acme.cloud_solution_projects.Project'].id + "/signal/" + signalName,
+            this._instanceVariablesUrl + "/" + projectId + "/signal/" + signalName,
             project, options)
             .map((response: Response) => { return "success" });
     }

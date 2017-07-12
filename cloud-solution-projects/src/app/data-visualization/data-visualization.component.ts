@@ -51,7 +51,7 @@ export class DataVisualizationComponent implements OnInit {
         this.project['org.acme.cloud_solution_projects.Project'].dataIngestion = this.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'];
         this.project['org.acme.cloud_solution_projects.Project'].dataVisualization = dataVisualization;
         console.log(this.project);
-        this._projectService.signal(this.project, "additionalInfo").subscribe(response => {
+        this._projectService.signal(this.project, projectId, "additionalInfo").subscribe(response => {
             this._projectService.getProcessVariables(projectId)
                 .subscribe(response => {
                     console.log('process variables: ' + response);

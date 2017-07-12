@@ -44,30 +44,36 @@ export class CloudProvidersComponent implements OnInit {
 
     onSubmit() {
         let projectId = this._route.snapshot.paramMap.get('id');
+        let hasDataIngestion = this.cloudProviderForm.controls['hasDataIngestion'].value;
+        let hasDataVisualization = this.cloudProviderForm.controls['hasDataVisualization'].value;
         let cloudSolution = {
             "projectId": projectId,
             "cloudProvider": this.cloudProviderForm.controls['provider'].value,
             "locationCountry": this.cloudProviderForm.controls['countryLocation'].value,
-            "hasDataIngestion": this.cloudProviderForm.controls['hasDataIngestion'].value,
-            "hasDataVisualization": this.cloudProviderForm.controls['hasDataVisualization'].value
+            "hasDataIngestion": hasDataIngestion === null ? false : hasDataIngestion,
+            "hasDataVisualization": hasDataVisualization === null ? false: hasDataVisualization,
         };
         this.project['org.acme.cloud_solution_projects.Project'].cloudSolution = cloudSolution;
         this.project['org.acme.cloud_solution_projects.Project'].dataIngestion = null;
         console.log(this.project);
-        this._projectService.signal(this.project, "additionalInfo").subscribe(response => {
+        this._projectService.signal(this.project, projectId, "additionalInfo").subscribe(response => {
             this._projectService.getProcessVariables(projectId)
                 .subscribe(response => {
                     console.log('process variables: ' + response);
                     let viewName: string;
                     viewName = response.project['org.acme.cloud_solution_projects.Project'].viewRecommendation['org.acme.cloud_solution_projects.ViewRecommendation'].viewName;
-                    if(viewName)
+                    if (viewName)
                         this._router.navigate([viewName]);
                     else
-                        this._router.navigate(['projects/' + projectId + '/cloud']);            
+                        this._router.navigate(['projects/' + projectId + '/cloud']);
                 });
         }, err => {
             console.log(err);
             this._router.navigate(['projects/' + projectId + '/cloud']);
         });
+    }
+
+    onProjectsList() {
+        this._router.navigate(['projects']);
     }
 }

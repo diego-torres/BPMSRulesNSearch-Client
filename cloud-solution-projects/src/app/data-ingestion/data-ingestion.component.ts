@@ -47,7 +47,7 @@ export class DataIngestionComponent implements OnInit {
         };
         this.project['org.acme.cloud_solution_projects.Project'].cloudSolution = this.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'];
         this.project['org.acme.cloud_solution_projects.Project'].dataIngestion = dataIngestion;
-        this._projectService.signal(this.project, "additionalInfo").subscribe(response => {
+        this._projectService.signal(this.project, projectId, "additionalInfo").subscribe(response => {
             this._projectService.getProcessVariables(projectId)
                 .subscribe(response => {
                     let viewName: string;
@@ -61,5 +61,14 @@ export class DataIngestionComponent implements OnInit {
             console.log(err);
             this._router.navigate(['projects/' + projectId + '/cloud']);
         });
+    }
+
+    onProjectsList() {
+        this._router.navigate(['projects']);
+    }
+
+    onCloudSolution() {
+        let projectId = this._route.snapshot.paramMap.get('id');
+        this._router.navigate(['projects/' + projectId + '/cloud']);
     }
 }
