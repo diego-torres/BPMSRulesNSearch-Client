@@ -40,7 +40,7 @@ export class DataIngestionComponent implements OnInit {
         let projectId = this._route.snapshot.paramMap.get('id');
         let dataIngestion = {
             "projectId": projectId,
-            "requiresLicense": this.dataIngestionForm.controls['requiresLicense'].value,
+            "requiresLicense": this.dataIngestionForm.controls['requiresLicense'].value === null ? false : this.dataIngestionForm.controls['requiresLicense'].value,
             "licenseNumber": this.dataIngestionForm.controls['licenseNumber'].value,
             "etlToolPreference": this.dataIngestionForm.controls['etlTool'].value,
             "developersQuantity": this.dataIngestionForm.controls['developersQuantity'].value

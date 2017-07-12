@@ -28,7 +28,7 @@ export class SummaryComponent implements OnInit {
             this.cloudSolution = this.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'];
             if(this.cloudSolution.hasDataIngestion)
                 this.dataIngestion = this.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'];
-            if(this.cloudSolution.hasDataVisualizaiton)
+            if(this.cloudSolution.hasDataVisualization)
                 this.dataVisualization = this.project['org.acme.cloud_solution_projects.Project'].dataVisualization['org.acme.cloud_solution_projects.DataVisualization'];
         });
     }
@@ -36,12 +36,12 @@ export class SummaryComponent implements OnInit {
     onApprove(){
         let projectId = this._route.snapshot.paramMap.get('id');
         this._projectService.signal(null, projectId, "approveQuoteRequest");
-         this._router.navigate(['projects/']);
+        this._router.navigate(['projects/']);
     }
 
     onModify(){
         let projectId = this._route.snapshot.paramMap.get('id');
         this._projectService.signal(null, projectId, "modifyQuoteRequest");
-         this._router.navigate(['projects/' + projectId + '/cloud']);
+        this._router.navigate(['projects/' + projectId + '/cloud']);
     }
 }
