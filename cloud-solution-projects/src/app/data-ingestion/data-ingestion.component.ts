@@ -33,7 +33,6 @@ export class DataIngestionComponent implements OnInit {
         let projectId = this._route.snapshot.paramMap.get('id');
         this._projectService.getProcessVariables(projectId).subscribe(result => {
             this.project = result.project;
-            console.log('Project at dataIngestion: ' + this.project);
         });
     }
 
@@ -48,11 +47,9 @@ export class DataIngestionComponent implements OnInit {
         };
         this.project['org.acme.cloud_solution_projects.Project'].cloudSolution = this.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'];
         this.project['org.acme.cloud_solution_projects.Project'].dataIngestion = dataIngestion;
-        console.log(this.project);
         this._projectService.signal(this.project, "additionalInfo").subscribe(response => {
             this._projectService.getProcessVariables(projectId)
                 .subscribe(response => {
-                    console.log('process variables: ' + response);
                     let viewName: string;
                     viewName = response.project['org.acme.cloud_solution_projects.Project'].viewRecommendation['org.acme.cloud_solution_projects.ViewRecommendation'].viewName;
                     if (viewName)

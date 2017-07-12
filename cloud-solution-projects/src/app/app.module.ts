@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ProjectListComponent } from './project/project-list.component';
 import { ProjectAddComponent } from './project/project-add.component';
+import { ProjectEditComponent } from './project/project-edit.component';
 import { CloudProvidersComponent } from './cloud-providers/cloud-providers.component';
 import { DataIngestionComponent } from './data-ingestion/data-ingestion.component';
 import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
@@ -21,6 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent, 
     ProjectListComponent, 
     ProjectAddComponent, 
+    ProjectEditComponent,
     CloudProvidersComponent, 
     DataIngestionComponent,
     DataVisualizationComponent,

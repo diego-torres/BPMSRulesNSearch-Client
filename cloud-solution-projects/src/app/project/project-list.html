@@ -1,12 +1,7 @@
 <button type="button" class="btn btn-success" (click)="onClick()">New Project</button>
 <div>
-    <ngx-datatable 
-    [rows]="rows" 
-    [columns]="columns" 
-    [columnMode]="'force'"
-    [headerHeight]="50"
-    [footerHeight]="50"
-    [rowHeight]="'auto'"
-    [limit]="10"
-    class="material"></ngx-datatable>
+    <input type='text' class="form-control" style='padding:8px;margin:15px auto;width:30%;' placeholder='Type to filter the projects...' (keyup)='onUpdateFilter($event)'
+    />
+    <ngx-datatable #table [rows]="rows" [columns]="columns" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+        [limit]="10" [selected]="selected" [selectionType]="'single'" (select)='onSelect($event)' class="material"></ngx-datatable>
 </div>

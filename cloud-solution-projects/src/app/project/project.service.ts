@@ -7,7 +7,8 @@ import 'rxjs/add/operator/map';
 export class ProjectService {
     private _url: string = "/database/mock-projects.json";
     private _kieServer: string = "http://localhost:8230/kie-server/services/rest";
-    private _kieContainer: string = this._kieServer + "/server/containers/org.acme:cloud-solution-projects:1.0";
+    private _containerName: string = "org.acme:cloud-solution-projects:1.0";
+    private _kieContainer: string = this._kieServer + "/server/containers/" + this._containerName;
     private _processName: string = "cloud-solution-projects.quote-cloud-solution";
 
     private _createInstanceUrl: string = this._kieContainer + "/processes/" + this._processName + "/instances";
@@ -15,7 +16,11 @@ export class ProjectService {
     constructor(private _http: Http) { }
 
     getAllProjects() {
-        return this._http.get(this._url).map((response: Response) => response.json());
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        headers.append("Authorization", "Basic " + btoa('jboss' + ":" + 'bpms'));
+
+        let options = new RequestOptions({ headers: headers });
+        return this._http.get(this._kieServer + "/server/queries/containers/" + this._containerName + "/process/instances", options).map((r: Response) => r.json());
     }
 
     create(projectName: string, email: string) {
