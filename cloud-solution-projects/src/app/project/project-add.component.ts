@@ -38,4 +38,8 @@ export class ProjectAddComponent {
                 this._router.navigate(['projects']);
             });
     }
+
+    onCancel(){
+        this._router.navigate(['projects']);
+    }
 }

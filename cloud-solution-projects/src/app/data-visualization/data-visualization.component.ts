@@ -33,7 +33,6 @@ export class DataVisualizationComponent implements OnInit {
         let projectId = this._route.snapshot.paramMap.get('id');
         this._projectService.getProcessVariables(projectId).subscribe(result => {
             this.project = result.project;
-            console.log('Project at dataIngestion: ' + this.project);
         });
     }
 
@@ -53,11 +52,9 @@ export class DataVisualizationComponent implements OnInit {
             this.project['org.acme.cloud_solution_projects.Project'].dataIngestion = this.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'];
         
         this.project['org.acme.cloud_solution_projects.Project'].dataVisualization = dataVisualization;
-        console.log(this.project);
         this._projectService.signal(this.project, projectId, "additionalInfo").subscribe(response => {
             this._projectService.getProcessVariables(projectId)
                 .subscribe(response => {
-                    console.log('process variables: ' + response);
                     let viewName: string;
                     viewName = response.project['org.acme.cloud_solution_projects.Project'].viewRecommendation['org.acme.cloud_solution_projects.ViewRecommendation'].viewName;
                     if (viewName)
@@ -69,5 +66,14 @@ export class DataVisualizationComponent implements OnInit {
             console.log(err);
             this._router.navigate(['projects/' + projectId + '/cloud']);
         });
+    }
+
+    onProjectsList() {
+        this._router.navigate(['projects']);
+    }
+
+    onCloudSolution() {
+        let projectId = this._route.snapshot.paramMap.get('id');
+        this._router.navigate(['projects/' + projectId + '/cloud']);
     }
 }

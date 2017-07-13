@@ -19,7 +19,6 @@ export class ProjectEditComponent implements OnInit {
     ngOnInit() {
         let projectId = this._route.snapshot.paramMap.get('id');
         this._projectService.getProcessVariables(projectId).subscribe(result => {
-            console.log('process variables: ' + result);
             let viewName: string;
             viewName = result.project['org.acme.cloud_solution_projects.Project'].viewRecommendation['org.acme.cloud_solution_projects.ViewRecommendation'].viewName;
             if (viewName)
