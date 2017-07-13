@@ -35,13 +35,15 @@ export class SummaryComponent implements OnInit {
 
     onApprove(){
         let projectId = this._route.snapshot.paramMap.get('id');
-        this._projectService.signal(null, projectId, "approveQuoteRequest");
-        this._router.navigate(['projects/']);
+        this._projectService.signal(null, projectId, "approveQuoteRequest").subscribe(result => {
+            this._router.navigate(['projects/']);
+        });
     }
 
     onModify(){
         let projectId = this._route.snapshot.paramMap.get('id');
-        this._projectService.signal(null, projectId, "modifyQuoteRequest");
-        this._router.navigate(['projects/' + projectId + '/cloud']);
+        this._projectService.signal(null, projectId, "modifyQuoteRequest").subscribe(result => {
+            this._router.navigate(['projects/' + projectId + '/cloud']);
+        });
     }
 }

@@ -48,7 +48,10 @@ export class DataVisualizationComponent implements OnInit {
             "preferredVisualizationTool": this.dataVisualizationForm.controls['visualizationTool'].value
         };
         this.project['org.acme.cloud_solution_projects.Project'].cloudSolution = this.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'];
-        this.project['org.acme.cloud_solution_projects.Project'].dataIngestion = this.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'];
+        
+        if(this.project['org.acme.cloud_solution_projects.Project'].dataIngestion)
+            this.project['org.acme.cloud_solution_projects.Project'].dataIngestion = this.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'];
+        
         this.project['org.acme.cloud_solution_projects.Project'].dataVisualization = dataVisualization;
         console.log(this.project);
         this._projectService.signal(this.project, projectId, "additionalInfo").subscribe(response => {

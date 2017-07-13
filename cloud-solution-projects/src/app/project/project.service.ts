@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 export class ProjectService {
     private _url: string = "/database/mock-projects.json";
     private _kieServer: string = "http://localhost:8230/kie-server/services/rest";
-    private _containerName: string = "org.acme:cloud-solution-projects:1.0";
+    private _containerName: string = "org.acme:cloud-solution-projects:1.10";
     private _kieContainer: string = this._kieServer + "/server/containers/" + this._containerName;
     private _processName: string = "cloud-solution-projects.quote-cloud-solution";
 
