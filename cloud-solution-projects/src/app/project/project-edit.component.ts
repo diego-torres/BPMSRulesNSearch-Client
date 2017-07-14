@@ -20,7 +20,7 @@ export class ProjectEditComponent implements OnInit {
         let projectId = this._route.snapshot.paramMap.get('id');
         this._projectService.getProcessVariables(projectId).subscribe(result => {
             let viewName: string;
-            viewName = result.project['org.acme.cloud_solution_projects.Project'].viewRecommendation['org.acme.cloud_solution_projects.ViewRecommendation'].viewName;
+            viewName = result.project.viewRecommendation.viewName;
             if (viewName)
                 this._router.navigate([viewName]);
             else

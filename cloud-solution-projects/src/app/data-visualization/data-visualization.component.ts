@@ -13,7 +13,7 @@ import { ProjectService } from '../project/project.service';
 })
 export class DataVisualizationComponent implements OnInit {
     dataVisualizationForm: FormGroup;
-    project: any = { "org.acme.cloud_solution_projects.Project": { "Title": "" } };
+    project: any = { "Title": "" };
 
     constructor(
         private _fb: FormBuilder,
@@ -46,17 +46,17 @@ export class DataVisualizationComponent implements OnInit {
             "developersQuantity": this.dataVisualizationForm.controls['developersQuantity'].value,
             "preferredVisualizationTool": this.dataVisualizationForm.controls['visualizationTool'].value
         };
-        this.project['org.acme.cloud_solution_projects.Project'].cloudSolution = this.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'];
+        //this.project['org.acme.cloud_solution_projects.Project'].cloudSolution = this.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'];
         
-        if(this.project['org.acme.cloud_solution_projects.Project'].dataIngestion)
+        /*if(this.project['org.acme.cloud_solution_projects.Project'].dataIngestion)
             this.project['org.acme.cloud_solution_projects.Project'].dataIngestion = this.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'];
-        
-        this.project['org.acme.cloud_solution_projects.Project'].dataVisualization = dataVisualization;
+        */
+        this.project.dataVisualization = dataVisualization;
         this._projectService.signal(this.project, projectId, "additionalInfo").subscribe(response => {
             this._projectService.getProcessVariables(projectId)
                 .subscribe(response => {
                     let viewName: string;
-                    viewName = response.project['org.acme.cloud_solution_projects.Project'].viewRecommendation['org.acme.cloud_solution_projects.ViewRecommendation'].viewName;
+                    viewName = response.project.viewRecommendation.viewName;
                     if (viewName)
                         this._router.navigate([viewName]);
                     else

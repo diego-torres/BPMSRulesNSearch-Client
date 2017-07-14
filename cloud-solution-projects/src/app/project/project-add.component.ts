@@ -30,7 +30,7 @@ export class ProjectAddComponent {
                     .subscribe(response => { 
                         //console.log('process variables: ' + response) 
                         let viewName: string;
-                        viewName = response.project['org.acme.cloud_solution_projects.Project'].viewRecommendation['org.acme.cloud_solution_projects.ViewRecommendation'].viewName;
+                        viewName = response.project.viewRecommendation.viewName;
                         this._router.navigate([viewName]);
                     });
             }, err => {

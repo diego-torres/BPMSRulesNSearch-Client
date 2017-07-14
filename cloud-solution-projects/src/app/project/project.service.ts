@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 export class ProjectService {
     private _url: string = "/database/mock-projects.json";
     private _kieServer: string = "http://localhost:8230/kie-server/services/rest";
-    private _containerName: string = "org.acme:cloud-solution-projects:1.10";
+    private _containerName: string = "org.acme:cloud-solution-projects:1.0";
     private _kieContainer: string = this._kieServer + "/server/containers/" + this._containerName;
     private _processName: string = "cloud-solution-projects.quote-cloud-solution";
 
@@ -42,10 +42,11 @@ export class ProjectService {
         headers.append("Authorization", "Basic " + btoa('jboss' + ":" + 'bpms'));
 
         let options = new RequestOptions({ headers: headers });
+        let _project = project !== null ? {"org.acme.cloud_solution_projects.Project":project} : null;
 
         return this._http.post(
             this._instanceVariablesUrl + "/" + projectId + "/signal/" + signalName,
-            project, options)
+            _project, options)
             .map((response: Response) => { return "success" });
     }
 

@@ -1,9 +1,9 @@
 <div class="alert alert-info">
     <h1>Cloud and Data Solution Quote Preview</h1>
-    <h2>Project: {{project['org.acme.cloud_solution_projects.Project'].title}}</h2>
+    <h2>Project: {{project.title}}</h2>
     <b>Cloud Provider:</b> {{cloudSolution.cloudProvider}}<br />
     <b>Location:</b> {{cloudSolution.locationCountry}}<br />
-    <h1>Price: {{project['org.acme.cloud_solution_projects.Project'].price}}</h1>
+    <h1>Price: {{project.price}}</h1>
     <button type="button" (click)="onModify()" class="btn btn-danger">Modify Quote</button>
     <button type="button" (click)="onApprove()" class="btn btn-success">Approve Quote</button>
 </div>

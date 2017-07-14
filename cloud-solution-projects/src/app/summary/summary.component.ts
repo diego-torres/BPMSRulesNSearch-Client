@@ -25,11 +25,12 @@ export class SummaryComponent implements OnInit {
         let projectId = this._route.snapshot.paramMap.get('id');
         this._projectService.getProcessVariables(projectId).subscribe(result => {
             this.project = result.project;
-            this.cloudSolution = this.project['org.acme.cloud_solution_projects.Project'].cloudSolution['org.acme.cloud_solution_projects.CloudSolution'];
+            console.log(this.project);
+            this.cloudSolution = this.project.cloudSolution;
             if(this.cloudSolution.hasDataIngestion)
-                this.dataIngestion = this.project['org.acme.cloud_solution_projects.Project'].dataIngestion['org.acme.cloud_solution_projects.DataIngestion'];
+                this.dataIngestion = this.project.dataIngestion;
             if(this.cloudSolution.hasDataVisualization)
-                this.dataVisualization = this.project['org.acme.cloud_solution_projects.Project'].dataVisualization['org.acme.cloud_solution_projects.DataVisualization'];
+                this.dataVisualization = this.project.dataVisualization;
         });
     }
 

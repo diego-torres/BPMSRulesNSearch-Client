@@ -16,7 +16,7 @@ export class CloudProvidersComponent implements OnInit {
     cloudProviderForm: FormGroup;
     countries = [];
     cloudProviders = [];
-    project: any = { "org.acme.cloud_solution_projects.Project": { "Title": "" } };
+    project: any = { "title": "" };
 
     constructor(
         private _fb: FormBuilder,
@@ -51,16 +51,17 @@ export class CloudProvidersComponent implements OnInit {
             "cloudProvider": this.cloudProviderForm.controls['provider'].value,
             "locationCountry": this.cloudProviderForm.controls['countryLocation'].value,
             "hasDataIngestion": hasDataIngestion === null ? false : hasDataIngestion,
-            "hasDataVisualization": hasDataVisualization === null ? false: hasDataVisualization,
+            "hasDataVisualization": hasDataVisualization === null ? false : hasDataVisualization,
         };
-        this.project['org.acme.cloud_solution_projects.Project'].cloudSolution = cloudSolution;
-        this.project['org.acme.cloud_solution_projects.Project'].dataIngestion = null;
-        this.project['org.acme.cloud_solution_projects.Project'].dataVisualization = null;
+        this.project.cloudSolution = cloudSolution;
+        this.project.cloudSolution.project = { "id": projectId };
+        this.project.dataIngestion = null;
+        this.project.dataVisualization = null;
         this._projectService.signal(this.project, projectId, "additionalInfo").subscribe(response => {
             this._projectService.getProcessVariables(projectId)
                 .subscribe(response => {
                     let viewName: string;
-                    viewName = response.project['org.acme.cloud_solution_projects.Project'].viewRecommendation['org.acme.cloud_solution_projects.ViewRecommendation'].viewName;
+                    viewName = response.project.viewRecommendation.viewName;
                     if (viewName)
                         this._router.navigate([viewName]);
                     else
